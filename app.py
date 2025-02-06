@@ -21,18 +21,18 @@ def is_perfect(num):
 
 # Helper function to check if a number is Armstrong
 def is_armstrong(num):
-    digits = [int(d) for d in str(num)]
+    digits = [int(d) for d in str(abs(num))]  # Use absolute value for negative numbers
     power = len(digits)
-    return sum(d**power for d in digits) == num
+    return sum(d**power for d in digits) == abs(num)
 
 # Helper function to calculate digit sum
 def digit_sum(num):
-    return sum(int(d) for d in str(num))
+    return sum(int(d) for d in str(abs(num)))  # Use absolute value for negative numbers
 
 # Helper function to get fun fact
 def get_fun_fact(num):
     try:
-        response = requests.get(f"http://numbersapi.com/{num}/math?json")
+        response = requests.get(f"http://numbersapi.com/{abs(num)}/math?json")  # Use absolute value
         if response.status_code == 200:
             data = response.json()
             return data.get("text", "No fun fact found.")
@@ -46,7 +46,7 @@ def classify_number():
     number_str = request.args.get('number')
 
     # Validate input
-    if not number_str or not number_str.isdigit():
+    if not number_str or not number_str.lstrip('-').isdigit():  # Allow negative numbers
         return jsonify({
             "number": number_str,
             "error": True
@@ -56,8 +56,8 @@ def classify_number():
     number = int(number_str)
 
     # Perform calculations
-    is_prime_result = is_prime(number)
-    is_perfect_result = is_perfect(number)
+    is_prime_result = is_prime(number) if number > 0 else False  # Primes are only for positive numbers
+    is_perfect_result = is_perfect(number) if number > 0 else False  # Perfect numbers are only for positive numbers
     properties = []
 
     if is_armstrong(number):
