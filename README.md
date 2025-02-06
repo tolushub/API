@@ -29,8 +29,8 @@ http://number-classification-api-dev.us-west-2.elasticbeanstalk.com/api/classify
     "digit_sum": 11,
     "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371"
 }
-
-## Valid Negative Input
+```
+#### Valid Negative Input
 ```
 http://number-classification-api-dev.us-west-2.elasticbeanstalk.com/api/classify-number?number=-5
 ```
